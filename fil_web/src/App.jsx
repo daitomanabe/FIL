@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Download, Globe, MapPin, Info, ArrowDown } from 'lucide-react';
-import ReadmeViewer from './components/ReadmeViewer';
+import { Download, Globe, MapPin, Info, ArrowDown, Github } from 'lucide-react';
 import './App.css';
 
 const content = {
@@ -40,7 +39,8 @@ const content = {
       model1: "Download Daikanyama Model (.obj)",
       model2: "Download Daikanyama Plan 2 (.obj)",
       saver: "Download macOS Screensaver (.pkg)"
-    }
+    },
+    github: "View on GitHub"
   },
   jp: {
     title: "fil",
@@ -77,7 +77,8 @@ const content = {
       model1: "代官山モデル (.obj)",
       model2: "代官山プラン2 (.obj)",
       saver: "macOS スクリーンセーバー (.pkg)"
-    }
+    },
+    github: "GitHubで見る"
   }
 };
 
@@ -112,7 +113,6 @@ function App() {
             transition={{ duration: 1 }}
             className="hero-content"
           >
-            {/* Logo removed from here as requested */}
             <p className="subtitle">{t.subtitle}</p>
           </motion.div>
 
@@ -140,16 +140,23 @@ function App() {
               </motion.p>
             ))}
 
-            <div className="readme-sections" style={{ marginTop: '4rem' }}>
-              <div className="readme-block">
-                {/* <h3>fil_of_app</h3> */}
-                <ReadmeViewer filePath="./data/fil_of_app.md" />
-              </div>
-              <div className="readme-block" style={{ marginTop: '2rem' }}>
-                {/* <h3>fil_screensaver</h3> */}
-                <ReadmeViewer filePath="./data/fil_screensaver.md" />
-              </div>
-            </div>
+            <motion.div
+              style={{ marginTop: '3rem', textAlign: 'center' }}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+            >
+              <a
+                href="https://github.com/daitomanabe/FIL"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn"
+                style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#333', color: '#fff' }}
+              >
+                <Github size={20} />
+                {t.github}
+              </a>
+            </motion.div>
           </section>
 
           <section className="activities">
