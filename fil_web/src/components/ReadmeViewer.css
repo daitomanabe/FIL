@@ -1,0 +1,46 @@
+.readme-viewer {
+    font-family: inherit;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.readme-viewer h1,
+.readme-viewer h2,
+.readme-viewer h3 {
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+    color: #fff;
+}
+
+.readme-viewer h1 {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding-bottom: 0.3em;
+}
+
+.readme-viewer h2 {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 0.3em;
+}
+
+.readme-viewer code {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+    font-family: monospace;
+}
+
+.readme-viewer pre {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 1rem;
+    overflow-x: auto;
+    border-radius: 5px;
+}
+
+.readme-viewer pre code {
+    background: none;
+    padding: 0;
+}
+
+.readme-viewer a {
+    color: #a0cfff;
+}
