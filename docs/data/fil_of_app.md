@@ -1,7 +1,7 @@
 # Reverse Engineer & Port https://terra.in/fil/ to openFrameworks
 
 
-![Demo Animation](fil_logo_animation.gif)
+![Demo Animation](assets/fil_logo_animation.gif)
 
 ## Credits
 

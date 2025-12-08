@@ -25,9 +25,24 @@ const sources = [
     }
 ];
 
+// Copy animation gif
+const gifSource = path.resolve(projectRoot, '../fil_of_app/fil_logo_animation.gif');
+const gifDest = path.join(projectRoot, 'public', 'assets', 'fil_logo_animation.gif');
+if (fs.existsSync(gifSource)) {
+    fs.copyFileSync(gifSource, gifDest);
+    console.log(`Copied animation gif to ${gifDest}`);
+}
+
 sources.forEach(src => {
     if (fs.existsSync(src.path)) {
-        fs.copyFileSync(src.path, src.dest);
+        let content = fs.readFileSync(src.path, 'utf-8');
+
+        // Fix image link for fil_of_app
+        if (src.name === 'fil_of_app') {
+            content = content.replace('(fil_logo_animation.gif)', '(assets/fil_logo_animation.gif)');
+        }
+
+        fs.writeFileSync(src.dest, content);
         console.log(`Copied ${src.name} README to ${src.dest}`);
     } else {
         console.warn(`Warning: ${src.name} README (src.path) not found. Creating empty placeholder.`);

@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Download, Globe, MapPin, Info, ArrowDown } from 'lucide-react';
-import IntroAnimation from './components/IntroAnimation';
 import ReadmeViewer from './components/ReadmeViewer';
 import './App.css';
 
@@ -39,7 +38,8 @@ const content = {
     downloads: {
       title: "Downloads",
       model1: "Download Daikanyama Model (.obj)",
-      model2: "Download Daikanyama Plan 2 (.obj)"
+      model2: "Download Daikanyama Plan 2 (.obj)",
+      saver: "Download macOS Screensaver (.pkg)"
     }
   },
   jp: {
@@ -75,169 +75,166 @@ const content = {
     downloads: {
       title: "ダウンロード",
       model1: "代官山モデル (.obj)",
-      model2: "代官山プラン2 (.obj)"
+      model2: "代官山プラン2 (.obj)",
+      saver: "macOS スクリーンセーバー (.pkg)"
     }
   }
 };
 
 function App() {
   const [lang, setLang] = useState('en');
-  const [showIntro, setShowIntro] = useState(true);
   const t = content[lang];
 
   return (
     <div className="app">
-      <AnimatePresence>
-        {showIntro && <IntroAnimation onComplete={() => setShowIntro(false)} />}
-      </AnimatePresence>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+      >
+        <nav className="nav">
+          <div className="logo">
+            <img src="./assets/logo/logo.svg" alt="FIL Logo" style={{ height: '24px' }} />
+          </div>
+          <button
+            className="lang-toggle"
+            onClick={() => setLang(l => l === 'en' ? 'jp' : 'en')}
+          >
+            <Globe size={16} style={{ marginRight: 6 }} />
+            {lang === 'en' ? 'JP' : 'EN'}
+          </button>
+        </nav>
 
-      {!showIntro && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1 }}
-        >
-          <nav className="nav">
-            <div className="logo">
-              <img src="./assets/logo/logo.svg" alt="FIL Logo" style={{ height: '24px' }} />
+        <header className="hero">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1 }}
+            className="hero-content"
+          >
+            {/* Logo removed from here as requested */}
+            <p className="subtitle">{t.subtitle}</p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1, duration: 1 }}
+            className="scroll-indicator"
+          >
+            <ArrowDown size={24} />
+          </motion.div>
+        </header>
+
+        <main className="main-content">
+          <section className="intro">
+            {t.desc.map((d, i) => (
+              <motion.p
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.2 }}
+              >
+                {d}
+              </motion.p>
+            ))}
+
+            <div className="readme-sections" style={{ marginTop: '4rem' }}>
+              <div className="readme-block">
+                {/* <h3>fil_of_app</h3> */}
+                <ReadmeViewer filePath="./data/fil_of_app.md" />
+              </div>
+              <div className="readme-block" style={{ marginTop: '2rem' }}>
+                {/* <h3>fil_screensaver</h3> */}
+                <ReadmeViewer filePath="./data/fil_screensaver.md" />
+              </div>
             </div>
-            <button
-              className="lang-toggle"
-              onClick={() => setLang(l => l === 'en' ? 'jp' : 'en')}
-            >
-              <Globe size={16} style={{ marginRight: 6 }} />
-              {lang === 'en' ? 'JP' : 'EN'}
-            </button>
-          </nav>
+          </section>
 
-          <header className="hero">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1 }}
-              className="hero-content"
+          <section className="activities">
+            <motion.h2
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
             >
-              <img src="./assets/logo/logo.svg" alt="FIL" style={{ width: '200px', marginBottom: '2rem' }} />
-              <p className="subtitle">{t.subtitle}</p>
-            </motion.div>
+              {t.activities.title}
+            </motion.h2>
+            <ul>
+              {t.activities.items.map((item, i) => (
+                <motion.li
+                  key={i}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
+                >
+                  {item}
+                </motion.li>
+              ))}
+            </ul>
+          </section>
 
+          <section className="gallery">
             <motion.div
               initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1, duration: 1 }}
-              className="scroll-indicator"
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              className="image-grid"
             >
-              <ArrowDown size={24} />
+              <img src="./assets/images/A.png" alt="Layout A" />
+              <img src="./assets/images/B2.png" alt="Layout B2" />
+              <img src="./assets/images/B3.png" alt="Layout B3" />
             </motion.div>
-          </header>
+          </section>
 
-          <main className="main-content">
-            <section className="intro">
-              {t.desc.map((d, i) => (
-                <motion.p
-                  key={i}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.2 }}
-                >
-                  {d}
-                </motion.p>
-              ))}
-
-              <div className="readme-sections" style={{ marginTop: '4rem' }}>
-                <div className="readme-block">
-                  {/* <h3>fil_of_app</h3> */}
-                  <ReadmeViewer filePath="./data/fil_of_app.md" />
+          <section className="specs">
+            <div className="specs-grid">
+              <div className="spec-card">
+                <h3>{t.location.title}</h3>
+                <p><MapPin size={16} style={{ display: 'inline', verticalAlign: 'text-bottom' }} /> {t.location.address}</p>
+                <div className="access-list">
+                  {t.location.access.map((a, i) => <div key={i} className="access-item">{a}</div>)}
                 </div>
-                <div className="readme-block" style={{ marginTop: '2rem' }}>
-                  {/* <h3>fil_screensaver</h3> */}
-                  <ReadmeViewer filePath="./data/fil_screensaver.md" />
-                </div>
+                <p className="note"><Info size={16} /> {t.location.note}</p>
               </div>
-            </section>
 
-            <section className="activities">
-              <motion.h2
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-              >
-                {t.activities.title}
-              </motion.h2>
-              <ul>
-                {t.activities.items.map((item, i) => (
-                  <motion.li
-                    key={i}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.1 }}
-                  >
-                    {item}
-                  </motion.li>
-                ))}
-              </ul>
-            </section>
-
-            <section className="gallery">
-              <motion.div
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                className="image-grid"
-              >
-                <img src="./assets/images/A.png" alt="Layout A" />
-                <img src="./assets/images/B2.png" alt="Layout B2" />
-                <img src="./assets/images/B3.png" alt="Layout B3" />
-              </motion.div>
-            </section>
-
-            <section className="specs">
-              <div className="specs-grid">
-                <div className="spec-card">
-                  <h3>{t.location.title}</h3>
-                  <p><MapPin size={16} style={{ display: 'inline', verticalAlign: 'text-bottom' }} /> {t.location.address}</p>
-                  <div className="access-list">
-                    {t.location.access.map((a, i) => <div key={i} className="access-item">{a}</div>)}
-                  </div>
-                  <p className="note"><Info size={16} /> {t.location.note}</p>
-                </div>
-
-                <div className="spec-card">
-                  <h3>{t.specs.title}</h3>
-                  <p>{t.specs.area}</p>
-                  <p>{t.specs.height}</p>
-                  <p>{t.specs.elec}</p>
-                  <p>{t.specs.floor}</p>
-                </div>
+              <div className="spec-card">
+                <h3>{t.specs.title}</h3>
+                <p>{t.specs.area}</p>
+                <p>{t.specs.height}</p>
+                <p>{t.specs.elec}</p>
+                <p>{t.specs.floor}</p>
               </div>
-            </section>
+            </div>
+          </section>
 
-            <section className="downloads">
-              <motion.h2
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-              >
-                {t.downloads.title}
-              </motion.h2>
-              <div className="download-buttons">
-                <a href="./assets/3d/代官山.obj" download className="btn">
-                  <Download size={20} /> {t.downloads.model1}
-                </a>
-                <a href="./assets/3d/代官山 plan2.obj" download className="btn">
-                  <Download size={20} /> {t.downloads.model2}
-                </a>
-              </div>
-            </section>
-          </main>
+          <section className="downloads">
+            <motion.h2
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+            >
+              {t.downloads.title}
+            </motion.h2>
+            <div className="download-buttons">
+              <a href="./assets/3d/代官山.obj" download className="btn">
+                <Download size={20} /> {t.downloads.model1}
+              </a>
+              <a href="./assets/3d/代官山 plan2.obj" download className="btn">
+                <Download size={20} /> {t.downloads.model2}
+              </a>
+              <a href="https://github.com/daitomanabe/FIL/releases/download/v1.0.0/fil_screensaver.pkg" download className="btn" style={{ background: '#fff', color: '#000' }}>
+                <Download size={20} /> {t.downloads.saver}
+              </a>
+            </div>
+          </section>
+        </main>
 
-          <footer className="footer">
-            <p>© 2025 FIL<br /><span style={{ opacity: 0.5, fontSize: '0.9em' }}>Logo design by <a href="https://davidrudnick.org/" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', borderBottom: '1px solid rgba(255,255,255,0.2)' }}>David Rudnick</a></span></p>
-          </footer>
-        </motion.div>
-      )}
+        <footer className="footer">
+          <p>© 2025 FIL<br /><span style={{ opacity: 0.5, fontSize: '0.9em' }}>Logo design by <a href="https://davidrudnick.org/" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', borderBottom: '1px solid rgba(255,255,255,0.2)' }}>David Rudnick</a></span></p>
+        </footer>
+      </motion.div>
     </div>
   );
 }
