@@ -217,7 +217,7 @@ h2 {
   color: rgba(255, 255, 255, 0.3);
 }
 
-/* Concept Section */
+/* Concept Section Styles */
 .concept-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
