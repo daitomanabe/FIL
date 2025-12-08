@@ -216,3 +216,73 @@ h2 {
   font-size: 0.8rem;
   color: rgba(255, 255, 255, 0.3);
 }
+
+/* Concept Section */
+.concept-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+  text-align: left;
+}
+
+.concept-item {
+  background: rgba(255, 255, 255, 0.03);
+  padding: 2rem;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.3s, background 0.3s;
+}
+
+.concept-item:hover {
+  background: rgba(255, 255, 255, 0.07);
+  transform: translateY(-5px);
+}
+
+.concept-item h3 {
+  margin-top: 0;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  color: #fff;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding-bottom: 0.5rem;
+}
+
+.concept-item ul {
+  padding-left: 1.2rem;
+  margin: 0;
+}
+
+.concept-item li {
+  margin-bottom: 0.5rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.95rem;
+}
+
+.concept-item p {
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+.concept-item.full-width {
+  background: transparent;
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0;
+  padding: 3rem 1rem;
+}
+
+.concept-item.full-width:hover {
+  transform: none;
+  background: transparent;
+}
+
+.concept-item.full-width p {
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: #fff;
+  font-style: italic;
+}
