@@ -93,7 +93,9 @@ function App() {
   return (
     <div className="app">
       <nav className="nav">
-        <div className="logo">fil</div>
+        <div className="logo">
+          <img src="./assets/logo/logo.svg" alt="FIL Logo" style={{ height: '24px' }} />
+        </div>
         <button
           className="lang-toggle"
           onClick={() => setLang(l => l === 'en' ? 'jp' : 'en')}
@@ -110,7 +112,8 @@ function App() {
           transition={{ duration: 1 }}
           className="hero-content"
         >
-          <h1>{t.title}</h1>
+          <img src="./assets/logo/logo.svg" alt="FIL" style={{ width: '200px', marginBottom: '2rem' }} />
+          {/* <h1>{t.title}</h1> */}
           <p className="subtitle">{t.subtitle}</p>
         </motion.div>
 
@@ -137,6 +140,24 @@ function App() {
               {d}
             </motion.p>
           ))}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="projects-info"
+            style={{ marginTop: '4rem', padding: '2rem', background: 'rgba(255,255,255,0.05)', borderRadius: '8px' }}
+          >
+            <h3>Projects & Experiments</h3>
+            <p style={{ marginBottom: '0.5rem' }}>
+              {lang === 'en'
+                ? "We will upload various experiments and prototypes to this repository."
+                : "さまざまな実験やプロトタイプをここにアップしていきます。"}
+            </p>
+            <ul style={{ listStyle: 'none', paddingLeft: 0, marginTop: '1rem', opacity: 0.8 }}>
+              <li style={{ marginBottom: '0.5rem' }}>• <strong>fil_of_app</strong>: OpenFrameworks application</li>
+              <li style={{ marginBottom: '0.5rem' }}>• <strong>fil_screensaver</strong>: macOS Screensaver</li>
+            </ul>
+          </motion.div>
         </section>
 
         <section className="activities">
@@ -216,7 +237,7 @@ function App() {
       </main>
 
       <footer className="footer">
-        <p>© 2025 FIL</p>
+        <p>© 2025 FIL<br /><span style={{ opacity: 0.5, fontSize: '0.9em' }}>Logo design by <a href="https://davidrudnick.org/" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', borderBottom: '1px solid rgba(255,255,255,0.2)' }}>David Rudnick</a></span></p>
       </footer>
     </div>
   );
