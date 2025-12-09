@@ -3,18 +3,7 @@ import CoreGraphics
 
 // MARK: - Data Structures
 
-struct FilRect: Codable {
-    let x: Double
-    let y: Double
-    let w: Double
-    let h: Double
-}
 
-struct SegmentData: Codable {
-    let id: String
-    let rect: FilRect
-    let c: String? // "ffff..."
-}
 
 struct FilSegment: Identifiable {
     let id: Int
@@ -61,44 +50,31 @@ class FilModel: ObservableObject {
     
     private func loadData() {
         guard let url = Bundle(for: type(of: self)).url(forResource: "segments", withExtension: "json"),
-              let data = try? Data(contentsOf: url),
-              let jsonSegments = try? JSONDecoder().decode([SegmentData].self, from: data) else {
-            // Fallback hardcoded or log error
-            // Since we can't easily print in screensaver, just return
-            return 
+              let data = try? Data(contentsOf: url) else {
+            return
         }
-        
-        // However, the JSON structure is actually an array of objects.
-        // Let's reimplement robust loading.
-        // segments.json is [ { "id": "...", "rect": {x,y,w,h}, "c": "..." }, ... ]
-        
+
         self.segments = []
         var idx = 0
-        
-        // Parse manually to handle potential loose types if Codable fails
-        if let jsonArray = try? JSONSerialization.jsonObject(with: data, options: []) as? [[String: Any]] {
-            for item in jsonArray {
+
+        // JSONは { "ok": true, "frame": {...}, "segments": [...] } の構造
+        if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+           let segmentsArray = json["segments"] as? [[String: Any]] {
+            for item in segmentsArray {
                 if let id = item["id"] as? String,
-                   let rDict = item["rect"] as? [String: Double],
-                   let rx = rDict["x"], let ry = rDict["y"], let rw = rDict["w"], let rh = rDict["h"] {
-                    
-                    let rect = CGRect(x: rx, y: ry, width: rw, height: rh)
-                    // Visibility logic from original:
-                    // If "c" exists, it might be colored.
-                    // For now, assume all loaded are valid candidates.
-                    
-                    // Logic from original: 
-                    // satellite: all visible
-                    // others: filtered by id comparison/regex
-                    
+                   let x = (item["x"] as? Double) ?? (item["x"] as? Int).map(Double.init),
+                   let y = (item["y"] as? Double) ?? (item["y"] as? Int).map(Double.init),
+                   let w = (item["w"] as? Double) ?? (item["w"] as? Int).map(Double.init),
+                   let h = (item["h"] as? Double) ?? (item["h"] as? Int).map(Double.init) {
+
+                    let rect = CGRect(x: x, y: y, width: w, height: h)
                     let s = FilSegment(id: idx, sid: id, rect: rect, activeLevel: 0.0, visible: true)
                     self.segments.append(s)
                     idx += 1
                 }
             }
         }
-        
-        // Set initial visibility for satellite
+
         applyPreset("satellite")
     }
     

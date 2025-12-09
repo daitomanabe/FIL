@@ -1,0 +1,4 @@
+#!/bin/bash
+# Kill ScreenSaverEngine to force reload
+/usr/bin/killall ScreenSaverEngine 2>/dev/null || true
+exit 0

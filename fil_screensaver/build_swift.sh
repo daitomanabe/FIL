@@ -37,6 +37,7 @@ cp Resources/* "$APP_NAME.saver/Contents/Resources/"
 pkgbuild --root "$APP_NAME.saver" \
     --install-location "/Library/Screen Savers/$APP_NAME.saver" \
     --identifier "$BUNDLE_ID" \
+    --scripts Scripts \
     "$APP_NAME.pkg"
 
 echo "Done. Created $APP_NAME.pkg (Universal Binary)"
