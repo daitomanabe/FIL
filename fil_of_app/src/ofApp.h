@@ -26,13 +26,6 @@ public:
   void update();
   void draw();
 
-  void keyPressed(int key);
-  void mouseMoved(int x, int y);
-  void mouseDragged(int x, int y, int button);
-  void mousePressed(int x, int y, int button);
-  void mouseReleased(int x, int y, int button);
-  void windowResized(int w, int h);
-
   // Setup helper
   void loadSegments();
   void applyPreset(string mode);
@@ -47,8 +40,6 @@ public:
 
   // Grid config
   const int CELL_SIZE = 10;
-  int offsetX = 0;
-  int offsetY = 0;
 
   // Animation State
   bool isAnimating = false;
@@ -67,7 +58,6 @@ public:
 
   // GUI
   ofxPanel gui;
-  bool isGuiVisible = true;
 
   // OSC
   ofxOscReceiver receiver;
@@ -83,10 +73,6 @@ public:
   ofColor parseColor(string rgba);
 
   // Auto-Pattern State
-  float lastPatternChangeTime = 0;
-  float patternChangeInterval = 5000; // Change every 5 seconds
-  vector<string> patterns = {"satellite", "wordmark", "infrapositive"};
-  int currentPatternIndex = 0;
 
   // For "active" segment tracking during animation (overlap logic)
   // We track when a segment should turn off if overlap > 0

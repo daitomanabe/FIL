@@ -46,8 +46,6 @@ void ofApp::loadSegments() {
   // needed
   float gridW = cols * CELL_SIZE;
   float gridH = rows * CELL_SIZE;
-  offsetX = (ofGetWidth() - gridW) / 2;
-  offsetY = (ofGetHeight() - gridH) / 2;
 
   segments.clear();
   for (auto &item : json["segments"]) {
@@ -331,8 +329,3 @@ void ofApp::keyPressed(int key) {
 }
 
 //--------------------------------------------------------------
-void ofApp::mouseMoved(int x, int y) {}
-void ofApp::mouseDragged(int x, int y, int button) {}
-void ofApp::mousePressed(int x, int y, int button) {}
-void ofApp::mouseReleased(int x, int y, int button) {}
-void ofApp::windowResized(int w, int h) {}
