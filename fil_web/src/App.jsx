@@ -238,23 +238,6 @@ function App() {
               </motion.p>
             ))}
 
-            <motion.div
-              style={{ marginTop: '3rem', textAlign: 'center' }}
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-            >
-              <a
-                href="https://github.com/daitomanabe/FIL"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn"
-                style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#333', color: '#fff' }}
-              >
-                <Github size={20} />
-                {t.github}
-              </a>
-            </motion.div>
           </section>
 
           <section className="concept">
@@ -360,6 +343,24 @@ function App() {
               </div>
             </div>
           </section>
+
+          <motion.div
+            style={{ margin: '4rem 0 2rem', textAlign: 'center' }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+          >
+            <a
+              href="https://github.com/daitomanabe/FIL"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn"
+              style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#333', color: '#fff' }}
+            >
+              <Github size={20} />
+              {t.github}
+            </a>
+          </motion.div>
 
           <section className="downloads">
             <motion.h2
