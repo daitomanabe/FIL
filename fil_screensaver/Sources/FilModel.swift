@@ -25,14 +25,16 @@ class FilModel: ObservableObject {
     // Animation State
     private var lastTime: TimeInterval = 0
     private var isSequenceActive: Bool = false
+    private var wasSequenceActive: Bool = true  // For detecting falling edge
     private var isHolding: Bool = false
     private var holdStartTime: TimeInterval = 0
     private var lastStepTime: TimeInterval = 0
     private var currentPreset: String = "satellite"
     
     // Params
-    private let paramSpeed: Double = 33.33 // ms
-    private let paramFade: Double = 120.0  // ms
+    private let paramSpeed: Double = 235.3 // ms (4000ms / 17 steps)
+    private let paramFade: Double = 0.0    // ms
+    private let paramOverlap: Double = 50.0 // ms
     private let paramProb: Double = 0.5
     
     // Sequencer
@@ -80,20 +82,18 @@ class FilModel: ObservableObject {
     
     func tick(timestamp: TimeInterval) {
         let nowMs = timestamp * 1000.0
-        
-        // 1. Check Hold
-        // Detect falling edge of sequence
-        // Actually simpler: if not active and not holding, start hold
-        if !isSequenceActive && !isHolding {
+
+        // 1. Check Hold - detect falling edge (wasAnimating && !isAnimating)
+        if wasSequenceActive && !isSequenceActive {
             isHolding = true
             holdStartTime = nowMs
         }
-        
+        wasSequenceActive = isSequenceActive
+
         if isHolding {
             // Logic sync with ofApp:
-            // if satellite -> wait 15000 (15s) then switch to Logo
-            // if logo -> wait 3000 (3s) then switch to Satellite
-            let holdDur = (currentPreset == "satellite") ? 7000.0 : 3000.0
+            // Fixed 1.0s hold for all states
+            let holdDur = 1000.0
             
             if nowMs - holdStartTime > holdDur {
                 isHolding = false
@@ -165,10 +165,11 @@ class FilModel: ObservableObject {
         // Filter visible indices
         animOrder = segments.indices.filter { segments[$0].visible }
         animOrder.shuffle()
-        
+
         animIndex = 0
         isSequenceActive = true
-        lastStepTime = 0
+        // Force immediate start by setting lastStepTime to allow first step
+        lastStepTime = -paramSpeed
         activeAnims.removeAll()
     }
     
@@ -177,32 +178,39 @@ class FilModel: ObservableObject {
             isSequenceActive = false
             return
         }
-        
-        // Batch size logic from original? Original was 1 per step (shuffled).
-        // Let's do 1 per step.
+
+        // Clear previous anims if no overlap (matching ofApp behavior)
+        if paramOverlap <= 0 {
+            activeAnims.removeAll()
+        }
+
         let idx = animOrder[animIndex]
-        activeAnims[idx] = (nowMs, 500.0) // 500ms duration for "flash" or overlap
-        
+        let dur = (paramOverlap <= 0) ? paramSpeed : (paramSpeed + paramOverlap)
+        activeAnims[idx] = (nowMs, dur)
+
         animIndex += 1
     }
     
     private func applyPreset(_ name: String) {
+        // Segment IDs matching ofApp.cpp
+        let wordmarkIds = ["V_TL_01", "V_TM_01", "V_TR_01",
+                           "V_BL_01", "V_BM_01", "V_BR_01",
+                           "H_TL_01", "H_ML_01", "H_BR_01"]
+
+        let infraposIds = ["V_TM_01", "V_BM_01", "H_TL_01", "H_ML_01",
+                           "H_MR_01", "H_BR_01", "H_MM_01"]
+
         for i in 0..<segments.count {
-            segments[i].visible = checkVisibility(segments[i], preset: name)
+            switch name {
+            case "satellite":
+                segments[i].visible = true
+            case "wordmark":
+                segments[i].visible = wordmarkIds.contains(segments[i].sid)
+            case "infrapositive":
+                segments[i].visible = infraposIds.contains(segments[i].sid)
+            default:
+                segments[i].visible = false
+            }
         }
-    }
-    
-    private func checkVisibility(_ s: FilSegment, preset: String) -> Bool {
-        if preset == "satellite" { return true }
-        if preset == "wordmark" {
-            // Logic from PHP/C++: "w_" prefix or similar. 
-            // Original: "w_f", "w_i", "w_l"
-            return s.sid.contains("w_f") || s.sid.contains("w_i") || s.sid.contains("w_l")
-        }
-        if preset == "infrapositive" {
-             // Logic: "t_f", "t_i", "t_l"
-             return s.sid.contains("t_f") || s.sid.contains("t_i") || s.sid.contains("t_l")
-        }
-        return false
     }
 }

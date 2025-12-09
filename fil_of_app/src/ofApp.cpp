@@ -16,7 +16,7 @@ void ofApp::setup() {
 
   // GUI Setup
   gui.setup();
-  gui.add(paramSpeed.setup("Speed (ms)", 100.0, 10.0, 1000.0));
+  gui.add(paramSpeed.setup("Speed (ms)", 235.3, 10.0, 1000.0));
   gui.add(paramOverlap.setup("Overlap (ms)", 50.0, -200.0, 500.0));
   gui.add(paramFade.setup("Fade/Lifetime (ms)", 0.0, 0.0, 2000.0));
   gui.add(paramWordmarkProb.setup("Wordmark Prob", 0.5, 0.0, 1.0));
@@ -126,7 +126,7 @@ void ofApp::update() {
   }
   wasAnimating = isAnimating;
 
-  float holdDuration = (currentPresetName == "satellite" ? 7000.0 : 3000.0);
+  float holdDuration = 1000.0;
   if (isHolding && (t - holdStartTime > holdDuration)) {
     isHolding = false;
     if (currentPresetName == "satellite") {
