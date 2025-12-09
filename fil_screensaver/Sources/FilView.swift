@@ -4,8 +4,8 @@ struct FilView: View {
     @ObservedObject var model: FilModel
     
     // Grid dims
-    let gw: Double = 1450.0
-    let gh: Double = 860.0
+    let gw: Double = 145.0
+    let gh: Double = 86.0
     
     var body: some View {
         Canvas { context, size in

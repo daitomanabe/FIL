@@ -126,13 +126,16 @@ void ofApp::update() {
   }
   wasAnimating = isAnimating;
 
-  float holdDuration = (currentPresetName == "satellite" ? 15000.0 : 3000.0);
+  float holdDuration = (currentPresetName == "satellite" ? 7000.0 : 3000.0);
   if (isHolding && (t - holdStartTime > holdDuration)) {
     isHolding = false;
-    currentPresetName =
-        (currentPresetName == "satellite")
-            ? (ofRandom(1.0) < paramWordmarkProb ? "wordmark" : "infrapositive")
-            : "satellite";
+    if (currentPresetName == "satellite") {
+      currentPresetName = "wordmark";
+    } else if (currentPresetName == "wordmark") {
+      currentPresetName = "infrapositive";
+    } else {
+      currentPresetName = "satellite";
+    }
     applyPreset(currentPresetName);
     startAnimation();
   }

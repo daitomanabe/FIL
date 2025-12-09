@@ -93,14 +93,15 @@ class FilModel: ObservableObject {
             // Logic sync with ofApp:
             // if satellite -> wait 15000 (15s) then switch to Logo
             // if logo -> wait 3000 (3s) then switch to Satellite
-            let holdDur = (currentPreset == "satellite") ? 15000.0 : 3000.0
+            let holdDur = (currentPreset == "satellite") ? 7000.0 : 3000.0
             
             if nowMs - holdStartTime > holdDur {
                 isHolding = false
                 // Switch
                 if currentPreset == "satellite" {
-                    let r = Double.random(in: 0...1)
-                    currentPreset = r < paramProb ? "wordmark" : "infrapositive"
+                    currentPreset = "wordmark"
+                } else if currentPreset == "wordmark" {
+                    currentPreset = "infrapositive"
                 } else {
                     currentPreset = "satellite"
                 }

@@ -8,13 +8,17 @@ import SwiftUI
     
     override init?(frame: NSRect, isPreview: Bool) {
         super.init(frame: frame, isPreview: isPreview)
+        self.autoresizingMask = [.width, .height]
         self.animationTimeInterval = 1.0/60.0
+        self.wantsLayer = true
         setup()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+        self.autoresizingMask = [.width, .height]
         self.animationTimeInterval = 1.0/60.0
+        self.wantsLayer = true
         setup()
     }
     
@@ -24,9 +28,15 @@ import SwiftUI
         hostingView = NSHostingView(rootView: view)
         
         if let hv = hostingView {
-            hv.frame = bounds
-            hv.autoresizingMask = [.width, .height]
+            hv.translatesAutoresizingMaskIntoConstraints = false
             addSubview(hv)
+            
+            NSLayoutConstraint.activate([
+                hv.leadingAnchor.constraint(equalTo: leadingAnchor),
+                hv.trailingAnchor.constraint(equalTo: trailingAnchor),
+                hv.topAnchor.constraint(equalTo: topAnchor),
+                hv.bottomAnchor.constraint(equalTo: bottomAnchor)
+            ])
         }
     }
     
