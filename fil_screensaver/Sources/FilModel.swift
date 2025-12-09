@@ -35,7 +35,7 @@ class FilModel: ObservableObject {
     private let paramSpeed: Double = 235.3 // ms (4000ms / 17 steps)
     private let paramFade: Double = 0.0    // ms
     private let paramOverlap: Double = 50.0 // ms
-    private let paramProb: Double = 0.5
+
     
     // Sequencer
     private var animOrder: [Int] = []

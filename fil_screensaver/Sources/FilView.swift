@@ -29,11 +29,7 @@ struct FilView: View {
             for segment in model.segments {
                 if segment.activeLevel > 0.01 {
                     let alpha = segment.activeLevel
-                    // Rect Flip: Original JSON y=0 is Top. Canvas y=0 is Top.
-                    // Wait, in the ObjC version we flipped because we thought it was needed.
-                    // If JSON is Top-Left (HTML style), and Canvas is Top-Left, NO FLIP needed.
-                    // ObjC Cocoa is Bottom-Left, so we flipped.
-                    // So simply specificy rect.
+                    // Rect Flip: Original JSON y=0 is Top. Canvas y=0 is Top. So simply specificy rect.
                     
                     let r = segment.rect
                     let path = Path(r)

@@ -57,12 +57,5 @@ import SwiftUI
         // Drive the model's tick
         let now = Date().timeIntervalSinceReferenceDate
         model.tick(timestamp: now)
-        // No setNeedsDisplay needed? SwiftUI @Published should trigger invalidation.
-        // However, NSHostingView might need explicit trigger if external loop drives it?
-        // Actually, ObservableObject update triggers View body re-eval.
-        // But since we are in a RunLoop provided by ScreenSaverEngine, we rely on SwiftUI's sync.
-        // It might be safer to let SwiftUI drive itself? No, standard is animateOneFrame.
-        // Let's rely on model update -> objectWillChange -> View update.
-        // If not, we might need to verify.
     }
 }
