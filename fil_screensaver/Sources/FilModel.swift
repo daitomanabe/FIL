@@ -114,7 +114,12 @@ class FilModel: ObservableObject {
         }
         
         if isHolding {
-            if nowMs - holdStartTime > 5000.0 {
+            // Logic sync with ofApp:
+            // if satellite -> wait 15000 (15s) then switch to Logo
+            // if logo -> wait 3000 (3s) then switch to Satellite
+            let holdDur = (currentPreset == "satellite") ? 15000.0 : 3000.0
+            
+            if nowMs - holdStartTime > holdDur {
                 isHolding = false
                 // Switch
                 if currentPreset == "satellite" {

@@ -126,7 +126,8 @@ void ofApp::update() {
   }
   wasAnimating = isAnimating;
 
-  if (isHolding && (t - holdStartTime > 5000)) {
+  float holdDuration = (currentPresetName == "satellite" ? 15000.0 : 3000.0);
+  if (isHolding && (t - holdStartTime > holdDuration)) {
     isHolding = false;
     currentPresetName =
         (currentPresetName == "satellite")

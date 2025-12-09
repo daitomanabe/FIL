@@ -376,7 +376,7 @@ function App() {
               <a href="./assets/3d/代官山 plan2.obj" download className="btn">
                 <Download size={20} /> {t.downloads.model2}
               </a>
-              <a href="https://github.com/daitomanabe/FIL/releases/download/v1.0.0/fil_screensaver.pkg" download className="btn" style={{ background: '#fff', color: '#000' }}>
+              <a href="https://github.com/daitomanabe/FIL/releases/download/v1.0.1/fil_screensaver.pkg" download className="btn" style={{ background: '#fff', color: '#000' }}>
                 <Download size={20} /> {t.downloads.saver}
               </a>
             </div>
