@@ -5,10 +5,10 @@ import './App.css';
 
 const content = {
   en: {
-    title: "fil",
+    title: "FIL",
     subtitle: "Where Creative Threads Intertwine",
     desc: [
-      `"fil" (pronounced "feel") means "thread" in French. It's a space where creators from various fields gather to spin threads of ideas and weave the fabric of new creation.`,
+      `"FIL" (pronounced "feel") means "thread" in French. It's a space where creators from various fields gather to spin threads of ideas and weave the fabric of new creation.`,
       `Run by Daito Manabe, this space aims to be a 21st-century salon where creators, artists, engineers, and musicians interact beyond boundaries. In our modern era, where technology and art converge, cross-disciplinary dialogue and collaboration are key to fostering innovation.`
     ],
     concept: {
@@ -92,10 +92,10 @@ const content = {
     github: "View on GitHub"
   },
   jp: {
-    title: "fil",
+    title: "FIL",
     subtitle: "創造の糸が交差する場所",
     desc: [
-      `「fil」(フィル)は、フランス語で「糸」を意味します。ここでは、さまざまな分野のクリエイターたちが音楽を中心に集い、アイデアという糸を紡ぎ、新たな創造の布を織り上げていく場所です。`,
+      `「FIL」(フィル)は、フランス語で「糸」を意味します。ここでは、さまざまな分野のクリエイターたちが音楽を中心に集い、アイデアという糸を紡ぎ、新たな創造の布を織り上げていく場所です。`,
       `真鍋大度が手掛けるこの革新的なスペースは、クリエーター、アーティスト、エンジニア、ミュージシャンが垣根を超えて交流する、21世紀型のサロンを目指しています。技術と芸術が融合する現代において、分野を超えた対話と協働がイノベーションを生み出す鍵となります。`
     ],
     concept: {
@@ -377,7 +377,7 @@ function App() {
               <a href="./assets/3d/代官山 plan2.obj" download className="btn">
                 <Download size={20} /> {t.downloads.model2}
               </a>
-              <a href="https://github.com/daitomanabe/FIL/releases/download/v1.0.1/fil_screensaver.pkg" download className="btn" style={{ background: '#fff', color: '#000' }}>
+              <a href="https://github.com/daitomanabe/FIL/releases/download/v1.5/fil_screensaver.pkg" download className="btn" style={{ background: '#fff', color: '#000' }}>
                 <Download size={20} /> {t.downloads.saver}
               </a>
             </div>
