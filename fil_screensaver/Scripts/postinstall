@@ -1,4 +1,8 @@
 #!/bin/bash
 # Kill ScreenSaverEngine to force reload
 /usr/bin/killall ScreenSaverEngine 2>/dev/null || true
+# Clear preferences cache
+/usr/bin/killall cfprefsd 2>/dev/null || true
+# Touch directory to trigger system notice
+/usr/bin/touch "/Library/Screen Savers"
 exit 0

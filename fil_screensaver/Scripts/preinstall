@@ -1,0 +1,4 @@
+#!/bin/bash
+# Force remove existing screensaver to ensure clean install
+/bin/rm -rf "/Library/Screen Savers/fil_screensaver.saver"
+exit 0
