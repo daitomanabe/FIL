@@ -22,5 +22,7 @@
 	<string>6</string>
 	<key>NSPrincipalClass</key>
 	<string>fil_screensaver.FilSaverView</string>
+	<key>NSHighResolutionCapable</key>
+	<true/>
 </dict>
 </plist>
