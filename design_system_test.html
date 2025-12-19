@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FIL Design System Test</title>
+    <style>
+        :root {
+            /* Core Design Tokens from fil_design_system.md */
+            --canvas-bg: #000000;
+            --cell: 10px;
+            --cols: 145;
+            --grid-line: rgba(255, 255, 255, 0.12);
+            --panel-bg: #000000;
+            --panel-border: #333333;
+            --panel-control-bg: #111111;
+            --panel-control-bg-hover: #222222;
+            --panel-input-bg: #111111;
+            --panel-input-border: #444444;
+            --panel-text: #ffffff;
+            --rows: 86;
+            --seg-duration: 0.3s;
+            --seg-ease: ease-out;
+            --segment-color: #ffffff;
+            --segment-label-bg: rgba(255, 255, 255, 0.4);
+            --segment-label-text: #000000;
+
+            /* Typography */
+            --font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --font-size-base: 16px;
+            --line-height: 1.5;
+
+            font-family: var(--font-family);
+            color: var(--panel-text);
+            background-color: var(--canvas-bg);
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            overflow-y: auto; /* Changed from hidden to auto for the test page to allow scrolling */
+            /* Grid Background Simulation */
+            background-image:
+                linear-gradient(var(--grid-line) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+            background-size: var(--cell) var(--cell);
+            background-position: -1px -1px; /* Align grid */
+        }
+
+        /* Layout Helpers */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--panel-bg);
+            border: 1px solid var(--panel-border);
+            padding: 40px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        h1, h2, h3 {
+            font-weight: 700;
+            margin-top: 2em;
+            margin-bottom: 1em;
+            border-bottom: 1px solid var(--panel-border);
+            padding-bottom: 0.5em;
+        }
+        h1:first-child { margin-top: 0; }
+
+        p {
+            font-size: var(--font-size-base);
+            line-height: var(--line-height);
+            margin-bottom: 1.5em;
+            color: rgba(255,255,255,0.8);
+        }
+
+        /* Color Swatches */
+        .swatch-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 20px;
+            margin-bottom: 2em;
+        }
+        .swatch {
+            border: 1px solid var(--panel-border);
+            padding: 10px;
+            background: var(--panel-control-bg);
+        }
+        .swatch-color {
+            height: 60px;
+            width: 100%;
+            margin-bottom: 10px;
+            border: 1px solid var(--panel-border);
+        }
+        .swatch-info {
+            font-family: monospace;
+            font-size: 12px;
+            color: rgba(255,255,255,0.6);
+        }
+        .swatch-name {
+            color: var(--segment-color);
+            margin-bottom: 4px;
+        }
+
+        /* UI Elements */
+        .ui-section {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .control-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        button {
+            background: var(--panel-control-bg);
+            color: var(--panel-text);
+            border: 1px solid var(--panel-border);
+            padding: 8px 16px;
+            font-family: var(--font-family);
+            font-size: 14px;
+            cursor: pointer;
+            transition: background var(--seg-duration) var(--seg-ease);
+        }
+        button:hover {
+            background: var(--panel-control-bg-hover);
+        }
+
+        input[type="text"] {
+            background: var(--panel-input-bg);
+            border: 1px solid var(--panel-input-border);
+            color: var(--panel-text);
+            padding: 8px 12px;
+            font-family: var(--font-family);
+            font-size: 14px;
+            outline: none;
+        }
+        input[type="text"]:focus {
+            border-color: var(--segment-color);
+        }
+
+        .label-badge {
+            background: var(--segment-label-bg);
+            color: var(--segment-label-text);
+            padding: 2px 6px;
+            font-size: 12px;
+            border-radius: 2px;
+            display: inline-block;
+        }
+
+        /* Grid Visualization */
+        .grid-demo {
+            width: 100%;
+            height: 100px;
+            border: 1px solid var(--segment-color);
+            position: relative;
+            margin-top: 10px;
+        }
+        .grid-demo::before {
+            content: "10px Grid Overlay";
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            font-size: 10px;
+            background: var(--canvas-bg);
+            padding: 2px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>FIL Design System Test</h1>
+        <p>Reference implementation of <code>fil_design_system.md</code>.</p>
+
+        <h2>Colors (Tokens)</h2>
+        <div class="swatch-grid">
+            <div class="swatch">
+                <div class="swatch-color" style="background: var(--canvas-bg);"></div>
+                <div class="swatch-info">
+                    <div class="swatch-name">--canvas-bg</div>
+                    #000000
+                </div>
+            </div>
+            <div class="swatch">
+                <div class="swatch-color" style="background: var(--panel-bg);"></div>
+                <div class="swatch-info">
+                    <div class="swatch-name">--panel-bg</div>
+                    #000000
+                </div>
+            </div>
+            <div class="swatch">
+                <div class="swatch-color" style="background: var(--panel-text);"></div>
+                <div class="swatch-info">
+                    <div class="swatch-name">--panel-text</div>
+                    #ffffff
+                </div>
+            </div>
+            <div class="swatch">
+                <div class="swatch-color" style="background: var(--panel-border);"></div>
+                <div class="swatch-info">
+                    <div class="swatch-name">--panel-border</div>
+                    #333333
+                </div>
+            </div>
+            <div class="swatch">
+                <div class="swatch-color" style="background: var(--grid-line);"></div>
+                <div class="swatch-info">
+                    <div class="swatch-name">--grid-line</div>
+                    rgba(255,255,255,0.12)
+                </div>
+            </div>
+            <div class="swatch">
+                <div class="swatch-color" style="background: var(--segment-color);"></div>
+                <div class="swatch-info">
+                    <div class="swatch-name">--segment-color</div>
+                    #ffffff
+                </div>
+            </div>
+            <div class="swatch">
+                <div class="swatch-color" style="background: var(--panel-control-bg);"></div>
+                <div class="swatch-info">
+                    <div class="swatch-name">--panel-control-bg</div>
+                    #111111
+                </div>
+            </div>
+             <div class="swatch">
+                <div class="swatch-color" style="background: var(--panel-control-bg-hover);"></div>
+                <div class="swatch-info">
+                    <div class="swatch-name">--panel-control-bg-hover</div>
+                    #222222
+                </div>
+            </div>
+            <div class="swatch">
+                <div class="swatch-color" style="background: var(--segment-label-bg);"></div>
+                <div class="swatch-info">
+                    <div class="swatch-name">--segment-label-bg</div>
+                    rgba(255,255,255,0.4)
+                </div>
+            </div>
+        </div>
+
+        <h2>Typography</h2>
+        <div class="ui-section">
+            <div>
+                <h1>Heading 1 (Bold 700)</h1>
+                <h2>Heading 2</h2>
+                <h3>Heading 3</h3>
+                <p>Body text (Regular 400). The quick brown fox jumps over the lazy dog. 
+                Use minimalist, technical language. Avoid flashy terms.</p>
+                <p style="font-size: 12px; opacity: 0.7;">Caption / Small text (Opactity 0.7)</p>
+            </div>
+            
+            <div style="font-family: monospace;">
+                <h3>Monospace Code (Concept)</h3>
+                <p>X: 124.002 Y: 442.100 [ACTIVE]</p>
+            </div>
+        </div>
+
+        <h2>UI Components</h2>
+        <div class="ui-section">
+            <div class="control-group">
+                <button>Action Button</button>
+                <button>Cancel</button>
+                <div class="label-badge">LABEL 01</div>
+            </div>
+
+            <div class="control-group">
+                <input type="text" placeholder="Input Field..." value="Value 100">
+                <input type="text" placeholder="Search...">
+            </div>
+
+            <div class="control-group">
+                <div style="padding: 10px; border: 1px solid var(--panel-border); display: flex; align-items: center; gap: 10px;">
+                    <span>Panel Group</span>
+                    <div style="width: 1px; height: 20px; background: var(--panel-border);"></div>
+                    <button style="font-size: 12px;">Small Btn</button>
+                </div>
+            </div>
+        </div>
+
+        <h2>Grid & Layout</h2>
+        <p>Background shows the <code>--cell: 10px</code> grid definition.</p>
+        <div class="grid-demo"></div>
+
+    </div>
+
+</body>
+</html>

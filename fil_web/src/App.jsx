@@ -355,7 +355,6 @@ function App() {
               target="_blank"
               rel="noopener noreferrer"
               className="btn"
-              style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#333', color: '#fff' }}
             >
               <Github size={20} />
               {t.github}
@@ -377,7 +376,7 @@ function App() {
               <a href="./assets/3d/代官山 plan2.obj" download className="btn">
                 <Download size={20} /> {t.downloads.model2}
               </a>
-              <a href="https://github.com/daitomanabe/FIL/releases/download/v1.5/fil_screensaver.pkg" download className="btn" style={{ background: '#fff', color: '#000' }}>
+              <a href="https://github.com/daitomanabe/FIL/releases/download/v1.5/fil_screensaver.pkg" download className="btn" style={{ background: 'var(--segment-color)', color: 'var(--canvas-bg)' }}>
                 <Download size={20} /> {t.downloads.saver}
               </a>
             </div>

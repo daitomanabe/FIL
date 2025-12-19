@@ -1,7 +1,7 @@
 .app {
   width: 100%;
   overflow-x: hidden;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  /* font-family inherited from :root */
 }
 
 .nav {
@@ -111,7 +111,7 @@ section {
 h2 {
   font-size: 2rem;
   margin-bottom: 3rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid var(--panel-border);
   padding-bottom: 1rem;
   display: inline-block;
 }
@@ -123,7 +123,7 @@ h2 {
 .activities li {
   font-size: 1.2rem;
   padding: 1rem 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid var(--panel-border);
 }
 
 .image-grid {
@@ -172,7 +172,8 @@ h2 {
   color: rgba(255, 255, 255, 0.4);
   margin-top: 2rem;
   padding: 1rem;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--panel-control-bg);
+  border: 1px solid var(--panel-border);
   border-radius: 4px;
 }
 
@@ -198,16 +199,19 @@ h2 {
   align-items: center;
   gap: 0.5rem;
   padding: 1rem 2rem;
-  background: #fff;
-  color: #000;
-  border-radius: 30px;
+  background: var(--panel-control-bg);
+  color: var(--panel-text);
+  border: 1px solid var(--panel-border);
+  border-radius: 4px;
+  /* More angular for technical feel */
   font-weight: 500;
-  transition: transform 0.2s, background 0.2s;
+  transition: all 0.2s;
 }
 
 .btn:hover {
   transform: translateY(-2px);
-  background: #f0f0f0;
+  background: var(--panel-control-bg-hover);
+  border-color: var(--panel-text);
 }
 
 .footer {
@@ -227,15 +231,16 @@ h2 {
 }
 
 .concept-item {
-  background: rgba(255, 255, 255, 0.03);
+  background: transparent;
   padding: 2rem;
-  border-radius: 4px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: transform 0.3s, background 0.3s;
+  border-radius: 0;
+  border: 1px solid var(--panel-border);
+  transition: transform 0.3s, background 0.3s, border-color 0.3s;
 }
 
 .concept-item:hover {
-  background: rgba(255, 255, 255, 0.07);
+  background: var(--panel-control-bg);
+  border-color: var(--panel-text);
   transform: translateY(-5px);
 }
 
@@ -243,9 +248,9 @@ h2 {
   margin-top: 0;
   font-size: 1.1rem;
   margin-bottom: 1rem;
-  color: #fff;
+  color: var(--panel-text);
   letter-spacing: 0.05em;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid var(--panel-border);
   padding-bottom: 0.5rem;
 }
 
@@ -269,8 +274,8 @@ h2 {
 .concept-item.full-width {
   background: transparent;
   border: none;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid var(--panel-border);
+  border-bottom: 1px solid var(--panel-border);
   border-radius: 0;
   padding: 3rem 1rem;
 }
