@@ -385,7 +385,7 @@ function App() {
 
         <footer className="footer">
           <p>© 2025 FIL<br />
-            <span style={{ opacity: 0.5, fontSize: '0.9em' }}>Last updated: 2025-12-26 19:12 JST</span><br />
+            <span style={{ opacity: 0.5, fontSize: '0.9em' }}>Last updated: 2025-12-26 19:17 JST</span><br />
             <span style={{ opacity: 0.5, fontSize: '0.9em' }}>Logo design by <a href="https://davidrudnick.org/" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', borderBottom: '1px solid rgba(255,255,255,0.2)' }}>David Rudnick</a></span></p>
         </footer>
       </motion.div>
